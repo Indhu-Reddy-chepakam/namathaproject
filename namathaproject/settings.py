@@ -21,6 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 import os
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'namathaproject.settings')
+
+application = get_wsgi_application()
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-s+bdtt*ew8w1$^)e_h*=3hnm7bmz!@i^f9n@s&()x((p@&mo=m')
 
