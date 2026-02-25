@@ -1,0 +1,516 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+<style>
+    /* ===== GENERAL ===== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* ===== NAVBAR LINK HOVER ===== */
+.navbar-nav .nav-link:hover {
+    color: #f44336 !important; /* Red hover */
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+    position: relative;
+    height: 90vh;
+    overflow: hidden;
+    border-radius: 16px;
+    margin: 20px;
+}
+
+/* Background Video */
+.hero video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+/* Dark Overlay */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 2;
+}
+
+/* Content */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 60px;
+    color: #fff;
+}
+
+/* Left Text */
+.hero-left {
+    max-width: 45%;
+}
+
+.hero-left h1 {
+    font-size: 44px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-left p {
+    font-size: 16px;
+    color: #ddd;
+    margin-bottom: 30px;
+}
+
+.hero-left a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f44336;
+    color: #fff;
+    padding: 14px 26px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.hero-left a:hover {
+    background: #d32f2f;
+}
+
+/* Right Stats */
+.hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.stat-box {
+    background: rgba(244, 67, 54, 0.9);
+    padding: 20px 24px;
+    border-radius: 14px;
+    width: 220px;
+    text-align: left;
+    transition: 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+    background: rgba(244, 67, 54, 1);
+}
+
+.stat-box h2 {
+    margin: 0;
+    font-size: 36px;
+}
+
+.stat-box span {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-left {
+        max-width: 100%;
+    }
+
+    .hero-right {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .stat-box {
+        width: 150px;
+    }
+}
+..services-section {
+    padding: 60px;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.service-card {
+    perspective: 1000px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease;
+}
+
+/* Flip on hover */
+.service-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front & Back common */
+.card-front,
+.card-back {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.services-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: #0f172a;
+    position: relative;
+}
+
+/* Decorative line */
+.services-title::after {
+    content: "";
+    width: 80px;
+    height: 4px;
+    background: #38bdf8; /* sky blue */
+    display: block;
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+
+/* Front */
+.card-front {
+    background: #ffffff;
+}
+
+.card-front .icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+/* Back */
+.card-back {
+    background: #3265db;
+    color: #fff;
+    transform: rotateY(180deg);
+    text-align: center;
+}
+
+.card-back img {
+    width: 120px;
+    margin-bottom: 15px;
+}
+.clients-section {
+    padding: 80px 60px;
+    background: #fff;
+}
+
+.clients-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.clients-icon {
+    width: 42px;
+    height: 42px;
+    background: #ef4444;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.clients-header h2 {
+    font-size: 36px;
+    color: #ef4444;
+}
+
+.clients-desc {
+    max-width: 900px;
+    color: #555;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+/* Slider */
+.clients-slider {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    scroll-behavior: smooth;
+}
+
+.clients-slider::-webkit-scrollbar {
+    height: 6px;
+}
+
+.clients-slider::-webkit-scrollbar-thumb {
+    background: #ef4444;
+    border-radius: 10px;
+}
+
+/* Card */
+.client-card {
+    min-width: 320px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.client-card:hover {
+    transform: translateY(-6px);
+}
+
+.client-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.client-card h4 {
+    font-size: 18px;
+    padding: 15px 15px 5px;
+}
+
+.client-card span {
+    font-size: 14px;
+    color: #777;
+    padding: 0 15px 15px;
+    display: block;
+}
+
+
+
+</style>
+<section class="hero">
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline>
+        <source src="{% static 'videos/panda_video.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Content -->
+    <div class="hero-content">
+        <!-- Left Text -->
+        <div class="hero-left">
+            <h1>Empowering Your Career Growth with Expert Trainers</h1>
+            <p>
+               We are a startup IT company specializing in software training and coaching, 
+               helping individuals and teams build strong technical skills and 
+               grow faster in their careers.
+            </p>
+            <a href="#">Get Started ↗</a>
+        </div>
+
+        <!-- Right Stats -->
+       
+    </div>
+</section>
+
+
+<!-- services -->
+
+<div class="services-section">
+    <h2 class="services-title">Our Services</h2>
+    <div class="service-grid">
+        
+
+        <!-- Card 1 -->
+        <div class="service-card">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <div class="icon">💻</div>
+                    <h3>Web Development</h3>
+                    <p>Modern, user-first websites.</p>
+                </div>
+
+                <div class="card-back">
+                    <img src="{% static 'images/panda_web.png' %}" alt="Web Development">
+                    <p>
+                        We design responsive, high-performance websites
+                        that represent your brand and convert visitors.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-card">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <div class="icon">📱</div>
+                    <h3>Social Media Marketing</h3>
+                    <p>Grow your online presence.</p>
+                </div>
+
+                <div class="card-back">
+                    <img src="{% static 'images/panda_social.png' %}" alt="Social Media Marketing">
+                    <p>
+                        Strategic social media campaigns to boost
+                        engagement, reach, and brand awareness.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="service-card">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <div class="icon">📈</div>
+                    <h3>Digital Marketing</h3>
+                    <p>Drive traffic & conversions.</p>
+                </div>
+
+                <div class="card-back">
+                    <img src="{% static 'images/panda_digital.png' %}" alt="Digital Marketing">
+                    <p>
+                        Data-driven marketing strategies that deliver
+                        measurable growth and ROI.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="service-card">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <div class="icon">🎨</div>
+                    <h3>Graphic Design</h3>
+                    <p>Creative visual solutions.</p>
+                </div>
+
+                <div class="card-back">
+                    <img src="{% static 'images/panda_graphic.png' %}" alt="Graphic Design">
+                    <p>
+                        Eye-catching designs that communicate your
+                        brand story effectively.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="service-card">
+            <div class="card-inner">
+
+                <div class="card-front">
+                    <div class="icon">📲</div>
+                    <h3>App Development</h3>
+                    <p>Smart & scalable apps.</p>
+                </div>
+
+                <div class="card-back">
+                    <img src="{% static 'images/panda_app.png' %}" alt="App Development">
+                    <p>
+                        High-performance mobile applications built
+                        for speed, security, and scalability.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<section class="clients-section">
+
+    <!-- Heading -->
+    <div class="clients-header">
+        <div class="clients-icon">🏅</div>
+        <h2>Our Clients</h2>
+    </div>
+
+    <p class="clients-desc">
+        Our success lies in the results we deliver. From real estate to e-commerce,
+        we’ve helped brands grow through smart digital strategies.
+        Explore how we turn ideas into impact.
+    </p>
+
+    <!-- Cards -->
+    <div class="clients-slider">
+
+        <div class="client-card">
+            <img src="{% static 'images/panda.bharath.png' %}" alt="Bharath Mens World">
+            <h4>Bharath Mens World</h4>
+            <span>Target – Fashion shoppers</span>
+        </div>
+
+        <div class="client-card">
+            <img src="{% static 'images/client2.jpg' %}" alt="KIMS Sunshine">
+            <h4>KIMS Sunshine: Streamlined Web Maintenance</h4>
+            <span>Target – Healthcare seekers</span>
+        </div>
+
+        <div class="client-card">
+            <img src="{% static 'images/client3.jpg' %}" alt="Sri Aishwarya Foods">
+            <h4>Sri Aishwarya Foods: Growing Organic Reach</h4>
+            <span>Target – Organic rice buyers</span>
+        </div>
+
+        <div class="client-card">
+            <img src="{% static 'images/client4.jpg' %}" alt="Hirawats">
+            <h4>Hirawats: Scaling E-Commerce with SEO</h4>
+            <span>Target – Medical buyers</span>
+        </div>
+
+        <div class="client-card">
+            <img src="{% static 'images/client5.jpg' %}" alt="Ayaansh Infra">
+            <h4>Ayaansh Infra: Digital Launch</h4>
+            <span>Target – Real estate buyers</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+{% endblock %}
